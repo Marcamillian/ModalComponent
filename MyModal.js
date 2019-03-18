@@ -12,6 +12,7 @@ export default class MyModal extends HTMLElement{
     this.focusedElementBeforeModal = null;
     this.firstTabStop = null;
     this.lastTabStop = null;
+    this.overlay = null;
   }
 
   connectedCallback(){
@@ -27,6 +28,15 @@ export default class MyModal extends HTMLElement{
 
     // set event listener for tabbing
     this.addEventListener('keydown', this.trappedKeyboardHandler )
+
+    // add a modal overlay
+    let overlay = document.createElement('div');
+    overlay.style.visibility = "hidden";
+    overlay.style.position = "fixed";
+    overlay.style.backgroundColor = "#000000aa"
+
+    this.overlay = overlay;
+    document.body.appendChild(overlay)
     
   }
   
@@ -43,8 +53,9 @@ export default class MyModal extends HTMLElement{
       }
     )
 
+    this.showOverlay()
     this.enterKeyboardTrap();
-
+    
   }
 
   close(){
@@ -61,6 +72,7 @@ export default class MyModal extends HTMLElement{
     )
 
     this.exitKeyboardTrap();
+    this.hideOverlay()
   }
 
   trappedKeyboardHandler(event){
@@ -107,6 +119,15 @@ export default class MyModal extends HTMLElement{
   exitKeyboardTrap(){
     if(this.focusedElementBeforeModal) this.focusedElementBeforeModal.focus();
 
+  }
+
+  showOverlay(){
+    this.overlay.style.height = `${window.innerHeight}px`;
+    this.overlay.style.width = `${window.innerWidth}px`;
+    this.overlay.style.visibility = "visible";
+  }
+  hideOverlay(){
+    this.overlay.style.visibility = "hidden";
   }
 
 }
