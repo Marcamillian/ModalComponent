@@ -1,3 +1,31 @@
+
+html{
+  height:100%;
+  font-family: 'Poiret One';
+}
+
+body{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  height:100%;
+}
+
+*:focus{
+  color:red;
+}
+
+button{
+  background-color: #03DAC6;
+  border-radius:20px;
+  height:auto;
+  padding:0.5em;
+  font-family:'Poiret One';
+  font-size: 1em;
+  font-weight:bold;
+}
+
+
 /* modal styling */
 my-modal{
   background-color: #000000cc;
@@ -23,6 +51,5 @@ my-modal h1{
   width:100%;  
 }
 
-*:focus{
-  color:red;
-}
+
+
