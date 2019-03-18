@@ -1,0 +1,28 @@
+/* modal styling */
+my-modal{
+  background-color: #000000cc;
+}
+my-modal h1{
+  color: white;
+  text-align:center;
+}
+
+my-modal{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  width:90%;
+  padding: 1em 5%;
+  
+  z-index: 1;
+}
+
+my-modal h1{
+  width:100%;  
+}
+
+*:focus{
+  color:red;
+}

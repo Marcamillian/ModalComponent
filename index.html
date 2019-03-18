@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+
+  <link rel="stylesheet" href='styles.css'>
+
+  <script type="module">
+
+    import MyModal from './MyModal.js';
+    customElements.define('my-modal', MyModal);
+
+  </script>
+</head>
+
+<body>
+  <my-modal>
+    <h1> There is an update to this webpage </h1>
+    <button class="top-hide" onClick="hideModal()"> Hide Modal </button>
+    <button onClick="hideModal()"> Another Hide Modal </button>
+  </my-modal>
+
+  <button class="top-show" onClick="showModal()"> Show Modal </button>
+
+
+  <script>
+    // do things with the modal
+    let hideModal = function hideModal(){
+      document.querySelector('my-modal').close()
+    }
+
+    let showModal = function showModal(){
+      document.querySelector('my-modal').open()  
+    }
+
+  </script>
+</body>
