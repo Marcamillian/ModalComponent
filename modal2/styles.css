@@ -1,0 +1,51 @@
+html{
+  height:100%;
+  font-family: 'Poiret One';
+}
+
+body{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  height:100%;
+}
+
+
+button{
+  background-color: limegreen;
+  height:auto;
+  padding:0.5em;
+  font-family:'Poiret One';
+  font-size: 1em;
+  font-weight:bold;
+}
+button:focus{
+  background-color:darkgoldenrod;
+}
+.top-show{
+  max-width: 100px;
+  margin:auto;
+}
+
+my-modal{
+  background-color: orange;
+}
+
+my-modal h1{
+  color: white;
+  text-align:center;
+  width:100%
+}
+
+my-modal{
+  display:flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  width:90%;
+  padding: 1em 5%;
+  
+  z-index: 1;
+}
+
