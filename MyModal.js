@@ -1,7 +1,25 @@
 // accessibility guidelines - https://www.w3.org/TR/wai-aria-practices-1.1/#alertdialog
 
 const template = document.createElement('template')
-template.innerHTML = `<slot></slot>`
+template.innerHTML = `
+<style>
+  :host{
+    position: fixed;
+    background-color: #000000cc;
+
+    color:white;
+    text-align:center;
+
+    flex-direction:column;
+    align-items:center;
+
+    width:90%;
+    padding: 1em 5%;
+    
+    z-index: 1;
+  }
+</style>
+<slot></slot>`
 
 
 export default class MyModal extends HTMLElement{
@@ -23,9 +41,7 @@ export default class MyModal extends HTMLElement{
     shadowRoot.appendChild(instance)
 
     // style the modal
-    this.style.position = 'fixed';
     this.style.top = `-${this.clientHeight + 10}px`; // start the modal off the screen
-    this.style.display = 'none';
 
     // set event listener for tabbing
     this.addEventListener('keydown', this.trappedKeyboardHandler )
@@ -40,10 +56,10 @@ export default class MyModal extends HTMLElement{
     document.body.appendChild(overlay)
     
   }
-  
+
   open(){
 
-    this.style.display = 'inherit'; // show the modal
+    this.style.display = 'flex'; // show the modal
     this.animate( // animate into position
       [
         { top: `${-( this.clientHeight + 10 )}px` },
