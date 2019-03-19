@@ -25,6 +25,7 @@ export default class MyModal extends HTMLElement{
     // style the modal
     this.style.position = 'fixed';
     this.style.top = `-${this.clientHeight + 10}px`; // start the modal off the screen
+    this.style.display = 'none';
 
     // set event listener for tabbing
     this.addEventListener('keydown', this.trappedKeyboardHandler )
@@ -41,10 +42,12 @@ export default class MyModal extends HTMLElement{
   }
   
   open(){
-    this.animate(
+
+    this.style.display = 'inherit'; // show the modal
+    this.animate( // animate into position
       [
         { top: `${-( this.clientHeight + 10 )}px` },
-        { top: '0px' }
+        { top: '0px' },
       ],
       {
         duration: 1000,
@@ -70,6 +73,9 @@ export default class MyModal extends HTMLElement{
         easing:'ease-in-out'
       }
     )
+    setTimeout(()=>{
+      this.style.display = 'none'
+    }, 1000)
 
     this.exitKeyboardTrap();
     this.hideOverlay()
