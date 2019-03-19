@@ -18,8 +18,29 @@ template.innerHTML = `
     
     z-index: 1;
   }
+  :host(.hide){
+    display:none;
+  }
+
+  .overlay{
+    position:fixed;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom:0px;
+    z-index:-1; 
+
+    background-color:#000000aa;
+  }
+  :host(.hide) .overlay{
+    display:none;
+  }
+
+
 </style>
-<slot></slot>`
+
+<slot></slot>
+<div class="overlay"></div>`
 
 
 export default class MyModal extends HTMLElement{
@@ -40,61 +61,76 @@ export default class MyModal extends HTMLElement{
     let instance = template.content.cloneNode(true)
     shadowRoot.appendChild(instance)
 
-    // style the modal
-    this.style.top = `-${this.clientHeight + 10}px`; // start the modal off the screen
+    this.overlay = shadowRoot.querySelector('.overlay')
 
     // set event listener for tabbing
     this.addEventListener('keydown', this.trappedKeyboardHandler )
+    this.classList.add('hide');
 
-    // add a modal overlay
-    let overlay = document.createElement('div');
-    overlay.style.visibility = "hidden";
-    overlay.style.position = "fixed";
-    overlay.style.backgroundColor = "#000000aa"
+  }
 
-    this.overlay = overlay;
-    document.body.appendChild(overlay)
-    
+  animations = {
+    "slideTop":(distance)=>{
+      return [
+        { top: `${distance}px` },
+        { top: '0px' },
+      ]
+    },
+    "fadeIn":[
+      {opacity: '0'},
+      {opacity: '1'}
+    ]
   }
 
   open(){
-
-    this.style.display = 'flex'; // show the modal
-    this.animate( // animate into position
-      [
-        { top: `${-( this.clientHeight + 10 )}px` },
-        { top: '0px' },
-      ],
+    // make modal visible
+    this.classList.remove('hide')
+    // move modal into view
+    this.animate( this.animations.slideTop(-( this.clientHeight + 10 )),
       {
         duration: 1000,
         fill:"forwards",
         easing:'ease-in-out'
       }
     )
+    // fade in the overlay
+    this.overlay.animate( this.animations.fadeIn,
+      {
+        duration: 200,
+        fill: 'forwards',
+        easing:'ease-in-out'
+      }
+    )
 
-    this.showOverlay()
-    this.enterKeyboardTrap();
-    
+    this.enterKeyboardTrap();    
   }
 
   close(){
-    this.animate(
-      [
-        { top: '0px' },
-        { top: `${-( this.clientHeight + 10 )}px` }
-      ],
+    // slide modal out of view
+    this.animate( this.animations.slideTop(-( this.clientHeight + 10 )),
       {
+        direction:'reverse',
         duration: 1000,
         fill: 'forwards',
         easing:'ease-in-out'
       }
     )
-    setTimeout(()=>{
-      this.style.display = 'none'
-    }, 1000)
+    //hide modal once out of view
+    .onfinish = ()=>{
+      this.classList.add('hide')
+    }
+    
+    // fade out overlay
+    this.overlay.animate(this.animations.fadeIn,
+      {
+        direction:'reverse',
+        duration: 200,
+        fill: 'forwards',
+        easing:'ease-in-out'
+      }
+    )
 
     this.exitKeyboardTrap();
-    this.hideOverlay()
   }
 
   trappedKeyboardHandler(event){
@@ -140,16 +176,6 @@ export default class MyModal extends HTMLElement{
   // clear the keyboard trap
   exitKeyboardTrap(){
     if(this.focusedElementBeforeModal) this.focusedElementBeforeModal.focus();
-
-  }
-
-  showOverlay(){
-    this.overlay.style.height = `${window.innerHeight}px`;
-    this.overlay.style.width = `${window.innerWidth}px`;
-    this.overlay.style.visibility = "visible";
-  }
-  hideOverlay(){
-    this.overlay.style.visibility = "hidden";
   }
 
 }
