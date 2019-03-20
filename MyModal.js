@@ -9,7 +9,7 @@ template.innerHTML = `
     right:0px;
 
     background-color: #000000cc;
-    background-size:contain;
+    background-size:auto;
     background-repeat:no-repeat; 
     background-position:center;
 
@@ -83,6 +83,10 @@ export default class MyModal extends HTMLElement{
     shadowRoot.appendChild(instance)
 
     this.overlay = shadowRoot.querySelector('.overlay')
+
+    this.setAttribute("role", "dialog")
+    this.setAttribute("aria-modal", "true")
+    if(!this.getAttribute("aria-label")) this.setAttribute('aria-label', "Alert Modal")
 
     // set event listener for tabbing
     this.addEventListener('keydown', this.trappedKeyboardHandler )
