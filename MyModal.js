@@ -5,21 +5,40 @@ template.innerHTML = `
 <style>
   :host{
     position: fixed;
+    left:0px;
+    right:0px;
+
     background-color: #000000cc;
+    background-size:contain;
+    background-repeat:no-repeat; 
+    background-position:center;
 
     color:white;
     text-align:center;
 
     flex-direction:column;
     align-items:center;
-
-    width:90%;
-    padding: 1em 5%;
     
     z-index: 1;
   }
   :host(.hide){
     display:none;
+  }
+  
+  .modal-container{
+    
+    flex-direction:inherit;
+    width:90%;
+    padding: 1em 5%;
+
+    z-index:1;
+   
+    background-color:inherit;
+    background-image:inherit;
+    background-size:inherit;
+    background-repeat:inherit;
+    background-position:center;
+    color:inherit; 
   }
 
   .overlay{
@@ -31,6 +50,7 @@ template.innerHTML = `
     z-index:-1; 
 
     background-color:#000000aa;
+   
   }
   :host(.hide) .overlay{
     display:none;
@@ -38,8 +58,9 @@ template.innerHTML = `
 
 
 </style>
-
-<slot></slot>
+<div class="modal-container">
+  <slot></slot>
+</div>
 <div class="overlay"></div>`
 
 
