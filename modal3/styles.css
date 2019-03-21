@@ -1,9 +1,43 @@
+html{
+  height:100%;
+  font-family: 'Poiret One';
+  background-color:slategrey
+}
+
+body{
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  height:100%;
+}
+
+button{
+  background-color: orange;
+  color:black;
+  padding:1em;
+  
+  font-weight:bolder;
+}
+button:focus{
+  background-color: black;
+  color:orange;
+  border: 2px solid orange;
+  
+}
+
 my-modal{
   background-image: url('./Restaurant.jpg');
 }
 
+.modal-block{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
 #logo{
   width:80px;
+  padding:0em 4em;
 }
 
 
