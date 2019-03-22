@@ -20,6 +20,7 @@ button{
 }
 button:focus{
   background-color:darkgoldenrod;
+  border-color: #ffffff00;
 }
 .top-show{
   max-width: 100px;

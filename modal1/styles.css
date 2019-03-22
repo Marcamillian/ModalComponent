@@ -11,10 +11,6 @@ body{
   height:100%;
 }
 
-*:focus{
-  color:red;
-}
-
 button{
   background-color: #03DAC6;
   border-radius:20px;
@@ -23,6 +19,17 @@ button{
   font-family:'Poiret One';
   font-size: 1em;
   font-weight:bold;
+}
+button:hover, button:focus{
+  color:white;
+  background-color:rgb(0, 128, 115);
+  border:none;
+  outline:none;
+}
+
+.top-show{
+  max-width:100px;
+  margin:auto;
 }
 
 
